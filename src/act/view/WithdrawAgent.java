@@ -44,7 +44,7 @@ public class WithdrawAgent extends JFrameView{
 //		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		JPanel buttonPanel = new JPanel();
 		Handler l = new Handler();
-		this.setTitle("Deposit Agent");
+		this.setTitle("Withdraw Agent");
 		
 //		JLabel idLabel = new JLabel("Agent ID: ");
 //		JTextField idTextField = new JTextField();
@@ -145,8 +145,10 @@ public class WithdrawAgent extends JFrameView{
 		// TODO Auto-generated method stub
 		transferredRef.setText(Double.toString(event.getAmount()));
 		transferredRef.updateUI();
-		opsCompletedRef.setText(Integer.toString(event.getOpsCompleted()));
+		opsCompletedRef.setText(Integer.toString(event.getWithdrawOpsCompleted()));
 		opsCompletedRef.updateUI();
+		stateRef.setText(event.getState());
+		stateRef.updateUI();
 		this.repaint();
 	}
 	

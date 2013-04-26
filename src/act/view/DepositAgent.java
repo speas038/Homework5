@@ -46,18 +46,19 @@ public class DepositAgent extends JFrameView{
 		Handler l = new Handler();
 		this.setTitle("Deposit Agent");
 		
-//		JLabel idLabel = new JLabel("Agent ID: ");
-//		JTextField idTextField = new JTextField();
 		JLabel amountLabel = new JLabel("Amount in $");
 		JTextField amountTextField = new JTextField();
+		amountTextField.setEditable(false);
 		amountRef = amountTextField;
 		
 		JLabel opsSecondLabel = new JLabel("Ops/second ");
 		JTextField opsSecondTextField = new JTextField();
+		opsSecondTextField.setEditable(false);
 		opsSecondRef = opsSecondTextField;
 		
 		JLabel stateLabel = new JLabel("State");
 		JTextField labelTextField = new JTextField();
+		labelTextField.setEditable(false);
 		stateRef = labelTextField;
 		
 		JLabel amountTransferredLabel = new JLabel("Amount Transferred: ");
@@ -66,6 +67,7 @@ public class DepositAgent extends JFrameView{
 		
 		JLabel opsCompletedLabel = new JLabel("Ops completed: ");
 		JTextField opsCompletedTextField = new JTextField();
+		opsCompletedTextField.setEditable(false);
 		opsCompletedRef = opsCompletedTextField;
 		
 		JButton stopButton = new JButton(AGENT_STOP);

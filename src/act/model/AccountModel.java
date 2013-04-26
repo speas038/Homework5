@@ -25,7 +25,8 @@ public class AccountModel extends AbstractModel{
 	public int stopWithdrawAgents = 0;
 	public int depositOps = 0;
 	public int withdrawOps = 0;
-	public String state = "running";
+	public String state = "Running";
+	public String withdrawState = "Running";
 	
 	
 	/**
@@ -85,7 +86,7 @@ public class AccountModel extends AbstractModel{
 			double amount = Double.parseDouble(amt);
 			currentAccount.setBalance(currentAccount.getBalance() + amount*currentRate);
 			depositOps++;
-			ModelEvent e = new ModelEvent((Object)this, 1, "changed", currentAccount.getBalance(), state, depositOps);
+			ModelEvent e = new ModelEvent((Object)this, 1, "changed", currentAccount.getBalance(), state, depositOps, withdrawOps);
 			notifyChanged(e);
 			notifyAll();
 		}
@@ -112,13 +113,18 @@ public class AccountModel extends AbstractModel{
 				currentAccount.setBalance(currentAccount.getBalance() - amount*currentRate);
 				withdrawOps++;
 //				ModelEvent e = new ModelEvent((Object)this, 1, "changed", currentAccount.getBalance());
-				ModelEvent e = new ModelEvent((Object)this, 1, "changed", currentAccount.getBalance(), state, withdrawOps);
+				ModelEvent e = new ModelEvent((Object)this, 1, "changed", currentAccount.getBalance(), withdrawState, depositOps, withdrawOps);
 				notifyChanged(e);
 			}
 	}
 	
 	public synchronized void threadWithdraw(String amt) throws Exception{
-		while(currentAccount.getBalance() - Integer.parseInt(amt) < 0) wait();
+		while(currentAccount.getBalance() - Integer.parseInt(amt) < 0){
+			withdrawState = "Blocked";
+			ModelEvent e = new ModelEvent((Object)this, 1, "changed", currentAccount.getBalance(), withdrawState, depositOps, withdrawOps);
+			notifyChanged(e);
+			wait();
+		}
 		withdraw(amt);
 		notifyAll();
 	}
