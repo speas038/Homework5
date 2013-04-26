@@ -104,7 +104,6 @@ public class AccountModel extends AbstractModel{
 	public void withdraw(String amt) throws Exception{
 		
 			double amount = Double.parseDouble(amt);
-			while(amount - currentAccount.getBalance() <= 0) wait();
 			if( !isValid(amt) ){
 				throw new Exception("Input must be number");
 			}else if(insufficientFunds(amount)){

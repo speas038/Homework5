@@ -15,10 +15,11 @@ public class WithdrawThread implements Runnable{
 	public void run() {
 		
 			try {
+				System.out.println("Withdraw Thread trying to start");
 					while(model.stopWithdrawAgents != 1){
 						model.threadWithdraw(amount);
 						Thread.sleep(1000/ops);
-						System.out.println("Thread Running");
+						System.out.println("Withdraw Thread Running");
 					}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
