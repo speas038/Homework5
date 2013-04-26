@@ -28,6 +28,7 @@ public class DepositAgentGenerator extends JFrameView{
 	
 
 	public static final String DEPOSIT_AGENT_START = "Start Agent";
+	public static final String VIEW_TYPE = "DepositAgentGenerator";
 	
 	public JTextField agentID;
 	public JTextField opsPerSecond;
@@ -43,10 +44,13 @@ public class DepositAgentGenerator extends JFrameView{
 		
 		JLabel idLabel = new JLabel("Agent ID: ");
 		JTextField idTextField = new JTextField();
+		agentID = idTextField;
 		JLabel amountLabel = new JLabel("Amount: ");
 		JTextField amountTextField = new JTextField();
+		amount = amountTextField;
 		JLabel opsSecondLabel = new JLabel("Ops/second ");
 		JTextField opsSecondTextField = new JTextField();
+		opsPerSecond = opsSecondTextField;
 		
 		JButton jButtonDeposit = new JButton(DEPOSIT_AGENT_START);
 		jButtonDeposit.addActionListener(l);

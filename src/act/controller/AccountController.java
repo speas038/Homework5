@@ -105,33 +105,23 @@ public class AccountController extends AbstractController {
 			}
 			
 		}else if( option == AccountView.CREATE_DEPOSIT_AGENT_GENERATOR){
-			swapView( new DepositAgentGenerator( (AccountModel)getModel(), this));
-			((JFrameView)getView()).setVisible(true);
+			setDepositAgentGenerator( new DepositAgentGenerator( (AccountModel)getModel(), this));
+			((JFrameView)getDepositAgentGenerator()).setVisible(true);
 			//set the title of the JFrame window
 			currentSelection = AccountView.CREATE_DEPOSIT_AGENT_GENERATOR;
 			
-		}else if( option == AccountView.CREATE_WITHDRAW_AGENT_GENERATOR){
-			swapView( new WithdrawAgentGenerator( (AccountModel)getModel(), this));
-			((JFrameView)getView()).setVisible(true);
-			//set the title of the JFrame window
-			currentSelection = AccountView.CREATE_WITHDRAW_AGENT_GENERATOR;
-			
 		}else if (option == DepositAgentGenerator.DEPOSIT_AGENT_START){
+			((AccountModel)getModel()).stopDepositAgents = 0;
+			String amt = ((DepositAgentGenerator)getDepositAgentGenerator()).getAmount();
+			int ops = ((DepositAgentGenerator)getDepositAgentGenerator()).getOps();
+			String agentID = ((DepositAgentGenerator)getDepositAgentGenerator()).getAgentID();
 			
-//			String amt = ((DepositAgentGenerator)getView()).getAmount();
-//			int ops = ((DepositAgentGenerator)getView()).getOps();
-//			String agentID = ((DepositAgentGenerator)getView()).getAgentID();
-			String amt = "6";
-			int ops = 1;
-			String agentID = "AGENT 1";
+			((JFrameView)getDepositAgentGenerator()).setVisible(false);
 			
-			System.out.println(agentID);
-			
-			((JFrameView)getView()).setVisible(false);
-
-			swapView( new DepositAgent((AccountModel)getModel(), this));
-			((JFrameView)getView()).setVisible(true);
+			setDepositAgent(new DepositAgent((AccountModel)getModel(), this));
+			((JFrameView)getDepositAgent()).setVisible(true);
 			currentSelection = DepositAgentGenerator.DEPOSIT_AGENT_START;
+			
 			t = new DepositThread((AccountModel)getModel(), amt, ops, agentID);
 			Thread T = new Thread(t);
 			T.start();
@@ -139,19 +129,11 @@ public class AccountController extends AbstractController {
 		
 		}else if(option == DepositAgent.AGENT_STOP){
 			((AccountModel)getModel()).stopDepositAgents = 1;
+			
+		}else if(option == DepositAgent.GENERATOR_DISMISS){
+			((AccountModel)getModel()).stopDepositAgents = 1;
+			((JFrameView)getDepositAgent()).setVisible(false);
+			
 		}
-//		else if( option == WithdrawAgentGenerator.WITHDRAW_AGENT_START){
-//			((JFrameView)getView()).setVisible(false);
-//			swapView( new WithdrawAgent((AccountModel)getModel(), this));
-//			((JFrameView)getView()).setVisible(true);
-//			currentSelection = WithdrawAgentGenerator.WITHDRAW_AGENT_START;
-//			
-//		}else if(option == DepositAgent.AGENT_STOP){
-//			//stop deposit generator
-//			
-//		}else if(option == DepositAgent.GENERATOR_DISMISS){
-			
-			
-//		}
 	}
 }

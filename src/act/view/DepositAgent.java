@@ -27,8 +27,9 @@ import act.controller.AccountController;
 public class DepositAgent extends JFrameView{
 	
 
-	public static final String AGENT_STOP = "Stop Deposit Agent";
-	public static final String GENERATOR_DISMISS = "Dismiss";
+	public static final String AGENT_STOP = "Stop Deposit Agents";
+	public static final String GENERATOR_DISMISS = "Deposit Agent Dismiss";
+	public static final String VIEW_TYPE = "Deposit AGENT";
 	
 	private JTextField balanceRef;
 	private JTextField editRef;
@@ -114,11 +115,12 @@ public class DepositAgent extends JFrameView{
 	 * Updates balance based on model changed event
 	 */
 	@Override
+	// TODO this needs to be changed to a Thread Event
 	public void modelChanged(ModelEvent event) {
 		// TODO Auto-generated method stub
 		balanceRef.setText(Double.toString(event.getAmount()));
 		balanceRef.updateUI();
-		this.repaint();
+//		this.repaint();
 	}
 	
 

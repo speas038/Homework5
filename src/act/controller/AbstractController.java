@@ -5,6 +5,10 @@ import act.view.View;
 public abstract class AbstractController implements Controller {
 	private View view;
 	private View view2 = null;
+	private View withdrawAgent = null;
+	private View depositAgent = null;
+	private View depositAgentGenerator;
+	private View withdrawAgentGenerator;
 	private Model model;
 	
 	public void setModel(Model model){this.model = model;}
@@ -31,7 +35,45 @@ public abstract class AbstractController implements Controller {
 		}
 	}
 	
-	public void swapGenerator(View view){
-		this.view2 = view;
+
+//	public void setWithdrawAgent( withdrawAgent) {
+//		this.withdrawAgent = withdrawAgent;
+//	}
+
+//	public View getWithdrawAgent() {
+//		return withdrawAgent;
+//	}
+	
+	public void setDepositAgent(View depositAgent) {
+		this.depositAgentGenerator = null;
+		this.depositAgent = depositAgent;
+	}
+
+	public View getDepositAgent() {
+		return depositAgent;
+	}
+
+	public void setWithdrawAgent(View withdrawAgent) {
+		this.withdrawAgent = withdrawAgent;
+	}
+
+	public View getWithdrawAgent() {
+		return withdrawAgent;
+	}
+
+	public void setWithdrawAgentGenerator(View withdrawAgentGenerator) {
+		this.withdrawAgentGenerator = withdrawAgentGenerator;
+	}
+
+	public View getWithdrawAgentGenerator() {
+		return withdrawAgentGenerator;
+	}
+
+	public void setDepositAgentGenerator(View depositAgentGenerator) {
+		this.depositAgentGenerator = depositAgentGenerator;
+	}
+
+	public View getDepositAgentGenerator() {
+		return depositAgentGenerator;
 	}
 }
