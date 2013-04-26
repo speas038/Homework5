@@ -25,8 +25,8 @@ public class AccountView extends JFrameView {
 	public static final String YEN = "Edit in Yen"; 
 	public static final String SAVE = "Save"; 
 	public static final String EXIT = "Exit"; 
-	public static final String CREATE_WITHDRAW_AGENT_GENERATOR = "Create Withdraw Agent";
-	public static final String CREATE_DEPOSIT_AGENT_GENERATOR = "Create Deposit Agent";
+	public static final String CREATE_WITHDRAW_AGENT_GENERATOR = "Create Withdraw Agent Generator";
+	public static final String CREATE_DEPOSIT_AGENT_GENERATOR = "Create Deposit Agent Generator";
 	
 	private JComboBox combo;
 	

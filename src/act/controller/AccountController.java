@@ -3,12 +3,13 @@ package act.controller;
 import act.model.Account;
 import act.model.AccountModel;
 import act.model.DepositThread;
+import act.model.WithdrawThread;
 import act.view.AccountView;
 import act.view.DepositAgent;
 import act.view.DepositAgentGenerator;
 import act.view.EditView;
 import act.view.JFrameView;
-//import act.view.WithdrawAgent;
+import act.view.WithdrawAgent;
 import act.view.WithdrawAgentGenerator;
 
 import javax.swing.JComboBox;
@@ -116,15 +117,20 @@ public class AccountController extends AbstractController {
 			int ops = ((DepositAgentGenerator)getDepositAgentGenerator()).getOps();
 			String agentID = ((DepositAgentGenerator)getDepositAgentGenerator()).getAgentID();
 			
+			
 			((JFrameView)getDepositAgentGenerator()).setVisible(false);
 			
 			setDepositAgent(new DepositAgent((AccountModel)getModel(), this));
+			((DepositAgent)getDepositAgent()).setAmount(amt);
+			((DepositAgent)getDepositAgent()).setOpsPerSecond(ops);
+			((DepositAgent)getDepositAgent()).setState("Running");
+			
 			((JFrameView)getDepositAgent()).setVisible(true);
 			currentSelection = DepositAgentGenerator.DEPOSIT_AGENT_START;
 			
-			t = new DepositThread((AccountModel)getModel(), amt, ops, agentID);
-			Thread T = new Thread(t);
-			T.start();
+			DepositThread d = new DepositThread((AccountModel)getModel(), amt, ops, agentID);
+			Thread D = new Thread(d);
+			D.start();
 			System.out.println("Deposit agent start");
 		
 		}else if(option == DepositAgent.AGENT_STOP){
@@ -134,6 +140,41 @@ public class AccountController extends AbstractController {
 			((AccountModel)getModel()).stopDepositAgents = 1;
 			((JFrameView)getDepositAgent()).setVisible(false);
 			
+		}else if( option == AccountView.CREATE_WITHDRAW_AGENT_GENERATOR){
+			setWithdrawAgentGenerator( new WithdrawAgentGenerator( (AccountModel)getModel(), this));
+			((JFrameView)getWithdrawAgentGenerator()).setVisible(true);
+			//set the title of the JFrame window
+			currentSelection = AccountView.CREATE_WITHDRAW_AGENT_GENERATOR;
+			
+		}else if (option == WithdrawAgentGenerator.WITHDRAW_AGENT_START){
+			((AccountModel)getModel()).stopWithdrawAgents = 0;
+			String amt = ((WithdrawAgentGenerator)getWithdrawAgentGenerator()).getAmount();
+			int ops = ((WithdrawAgentGenerator)getWithdrawAgentGenerator()).getOps();
+			String agentID = ((WithdrawAgentGenerator)getWithdrawAgentGenerator()).getAgentID();
+			
+			
+			((JFrameView)getWithdrawAgentGenerator()).setVisible(false);
+			
+			setWithdrawAgent(new WithdrawAgent((AccountModel)getModel(), this));
+			((WithdrawAgent)getWithdrawAgent()).setAmount(amt);
+			((WithdrawAgent)getWithdrawAgent()).setOpsPerSecond(ops);
+			((WithdrawAgent)getWithdrawAgent()).setState("Running");
+			
+			((JFrameView)getWithdrawAgent()).setVisible(true);
+			currentSelection = WithdrawAgentGenerator.WITHDRAW_AGENT_START;
+			
+			WithdrawThread w = new WithdrawThread((AccountModel)getModel(), amt, ops, agentID);
+			Thread W = new Thread(w);
+			W.start();
+			System.out.println("Withdraw agent start");
+		
+		}else if(option == WithdrawAgent.AGENT_STOP){
+			((AccountModel)getModel()).stopWithdrawAgents = 1;
+			
+		}else if(option == WithdrawAgent.GENERATOR_DISMISS){
+			((AccountModel)getModel()).stopWithdrawAgents = 1;
+			((JFrameView)getWithdrawAgent()).setVisible(false);
 		}
+			
 	}
 }

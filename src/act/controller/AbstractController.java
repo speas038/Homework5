@@ -35,15 +35,6 @@ public abstract class AbstractController implements Controller {
 		}
 	}
 	
-
-//	public void setWithdrawAgent( withdrawAgent) {
-//		this.withdrawAgent = withdrawAgent;
-//	}
-
-//	public View getWithdrawAgent() {
-//		return withdrawAgent;
-//	}
-	
 	public void setDepositAgent(View depositAgent) {
 		this.depositAgentGenerator = null;
 		this.depositAgent = depositAgent;

@@ -5,13 +5,11 @@ public class DepositThread implements Runnable{
 	private AccountModel model;
 	private String amount;
 	private int ops;
-	public String name;
 	
 	public DepositThread(AccountModel m, String amt, int ops, String name){
 		this.model = m;
 		this.amount = amt;
 		this.ops = ops;
-		this.name = name;
 	}
 	@Override
 	public void run() {
@@ -20,7 +18,7 @@ public class DepositThread implements Runnable{
 					while(model.stopDepositAgents != 1){
 						model.threadDeposit(amount);
 						Thread.sleep(1000/ops);
-						System.out.println(name + " " + amount + " " + ops);
+						System.out.println("Thread Running");
 					}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

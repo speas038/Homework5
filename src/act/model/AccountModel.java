@@ -23,6 +23,9 @@ public class AccountModel extends AbstractModel{
 	private double currentRate = USD;
 	public int stopDepositAgents = 0;
 	public int stopWithdrawAgents = 0;
+	public int depositOps = 0;
+	public int withdrawOps = 0;
+	public String state = "running";
 	
 	
 	/**
@@ -81,7 +84,8 @@ public class AccountModel extends AbstractModel{
 		}else{
 			double amount = Double.parseDouble(amt);
 			currentAccount.setBalance(currentAccount.getBalance() + amount*currentRate);
-			ModelEvent e = new ModelEvent((Object)this, 1, "changed", currentAccount.getBalance());
+			depositOps++;
+			ModelEvent e = new ModelEvent((Object)this, 1, "changed", currentAccount.getBalance(), state, depositOps);
 			notifyChanged(e);
 			notifyAll();
 		}
@@ -97,7 +101,7 @@ public class AccountModel extends AbstractModel{
 	 * @param amt
 	 * @throws Exception
 	 */
-	public synchronized void withdraw(String amt) throws Exception{
+	public void withdraw(String amt) throws Exception{
 		
 			double amount = Double.parseDouble(amt);
 			while(amount - currentAccount.getBalance() <= 0) wait();
@@ -107,9 +111,16 @@ public class AccountModel extends AbstractModel{
 				throw new Exception("Insufficient Funds: Amount to withdraw is " + -(currentAccount.balance - amount*currentRate) + " over the current balance of " + currentAccount.balance);
 			}else{
 				currentAccount.setBalance(currentAccount.getBalance() - amount*currentRate);
-				ModelEvent e = new ModelEvent((Object)this, 1, "changed", currentAccount.getBalance());
+				withdrawOps++;
+//				ModelEvent e = new ModelEvent((Object)this, 1, "changed", currentAccount.getBalance());
+				ModelEvent e = new ModelEvent((Object)this, 1, "changed", currentAccount.getBalance(), state, withdrawOps);
 				notifyChanged(e);
 			}
+	}
+	
+	public synchronized void threadWithdraw(String amt) throws Exception{
+		while(currentAccount.getBalance() - Integer.parseInt(amt) < 0) wait();
+		withdraw(amt);
 		notifyAll();
 	}
 	

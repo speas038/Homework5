@@ -24,12 +24,12 @@ import act.controller.AccountController;
  *
  */
 @SuppressWarnings("serial")
-public class DepositAgent extends JFrameView{
+public class WithdrawAgent extends JFrameView{
 	
 
-	public static final String AGENT_STOP = "Stop Deposit Agents";
-	public static final String GENERATOR_DISMISS = "Deposit Agent Dismiss";
-	public static final String VIEW_TYPE = "Deposit AGENT";
+	public static final String AGENT_STOP = "Stop Withdraw Agents";
+	public static final String GENERATOR_DISMISS = "Withdraw Agent Dismiss";
+	public static final String VIEW_TYPE = "WITHDRAW AGENT";
 	
 	private JTextField amountRef;
 	private JTextField transferredRef;
@@ -38,7 +38,7 @@ public class DepositAgent extends JFrameView{
 	private JTextField editRef;
 	private JTextField opsCompletedRef;
 	
-	public DepositAgent(AccountModel model, AccountController controller ){
+	public WithdrawAgent(AccountModel model, AccountController controller ){
 		super(model, controller);
 		
 //		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -157,3 +157,4 @@ public class DepositAgent extends JFrameView{
 	    } 
 	}
 }
+
